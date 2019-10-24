@@ -107,7 +107,7 @@ const App = ({realty}) => (
                 {/* </select>*/}
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {realty && realty.map((item) => (
+                {realty.map((item) => (
                   <article key={item} className="cities__place-card place-card">
                     <div className="cities__image-wrapper place-card__image-wrapper">
                       <a href="#">
