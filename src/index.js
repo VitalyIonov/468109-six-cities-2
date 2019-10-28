@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/App.jsx';
+import App from './components/App/App';
 
 const container = document.getElementById(`root`);
 
@@ -13,6 +13,7 @@ const init = () => {
           `Wood and stone place`,
           `Canal View Prinsengracht`,
           `Nice, cozy, warm big bed apartment`]}
+        onPlaceTitleClick={() => {}}
       />,
       container
   );

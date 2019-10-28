@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-const App = ({realty}) => (
+const App = ({realty, onPlaceTitleClick}) => (
   <Fragment>
     <div style={{"display": `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +133,7 @@ const App = ({realty}) => (
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
-                      <h2 className="place-card__name">
+                      <h2 className="place-card__name" onClick={onPlaceTitleClick}>
                         <a href="#">{item}</a>
                       </h2>
                       <p className="place-card__type">Private room</p>
@@ -153,7 +153,8 @@ const App = ({realty}) => (
 );
 
 App.propTypes = {
-  realty: PropTypes.arrayOf(PropTypes.string).isRequired
+  realty: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onPlaceTitleClick: PropTypes.func.isRequired
 };
 
 export default App;
