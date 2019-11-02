@@ -266,6 +266,8 @@ Array [
             >
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="cities__image-wrapper place-card__image-wrapper"
@@ -294,12 +296,14 @@ Array [
                       <b
                         className="place-card__price-value"
                       >
-                        €80
+                        €
+                        80
                       </b>
                       <span
                         className="place-card__price-text"
                       >
-                        / night
+                        / 
+                        night
                       </span>
                     </div>
                     <button
@@ -331,7 +335,9 @@ Array [
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": Object {
+                              "rating": "80%",
+                            },
                           }
                         }
                       />
@@ -361,6 +367,8 @@ Array [
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="cities__image-wrapper place-card__image-wrapper"
@@ -389,12 +397,14 @@ Array [
                       <b
                         className="place-card__price-value"
                       >
-                        €80
+                        €
+                        180
                       </b>
                       <span
                         className="place-card__price-text"
                       >
-                        / night
+                        / 
+                        night
                       </span>
                     </div>
                     <button
@@ -426,7 +436,9 @@ Array [
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": Object {
+                              "rating": "60%",
+                            },
                           }
                         }
                       />
@@ -456,6 +468,8 @@ Array [
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="cities__image-wrapper place-card__image-wrapper"
@@ -484,12 +498,14 @@ Array [
                       <b
                         className="place-card__price-value"
                       >
-                        €80
+                        €
+                        820
                       </b>
                       <span
                         className="place-card__price-text"
                       >
-                        / night
+                        / 
+                        night
                       </span>
                     </div>
                     <button
@@ -521,7 +537,9 @@ Array [
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": Object {
+                              "rating": "30%",
+                            },
                           }
                         }
                       />
@@ -551,6 +569,8 @@ Array [
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="cities__image-wrapper place-card__image-wrapper"
@@ -579,12 +599,14 @@ Array [
                       <b
                         className="place-card__price-value"
                       >
-                        €80
+                        €
+                        81
                       </b>
                       <span
                         className="place-card__price-text"
                       >
-                        / night
+                        / 
+                        night
                       </span>
                     </div>
                     <button
@@ -616,7 +638,9 @@ Array [
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": Object {
+                              "rating": "100%",
+                            },
                           }
                         }
                       />

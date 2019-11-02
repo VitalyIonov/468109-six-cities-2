@@ -1,7 +1,9 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-const App = ({realty, onPlaceTitleClick}) => (
+import ProposalList from '../proposalList/proposalList';
+
+const App = ({offers, onPlaceTitleClick}) => (
   <Fragment>
     <div style={{"display": `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -106,41 +108,10 @@ const App = ({realty, onPlaceTitleClick}) => (
                 {/* <option class="places__option" value="top-rated">Top rated first</option>*/}
                 {/* </select>*/}
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {realty.map((item) => (
-                  <article key={item} className="cities__place-card place-card">
-                    <div className="cities__image-wrapper place-card__image-wrapper">
-                      <a href="#">
-                        <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
-                      </a>
-                    </div>
-                    <div className="place-card__info">
-                      <div className="place-card__price-wrapper">
-                        <div className="place-card__price">
-                          <b className="place-card__price-value">&euro;80</b>
-                          <span className="place-card__price-text">&#47;&nbsp;night</span>
-                        </div>
-                        <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                          <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use xlinkHref="#icon-bookmark"></use>
-                          </svg>
-                          <span className="visually-hidden">In bookmarks</span>
-                        </button>
-                      </div>
-                      <div className="place-card__rating rating">
-                        <div className="place-card__stars rating__stars">
-                          <span style={{"width": `80%`}}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <h2 className="place-card__name" onClick={onPlaceTitleClick}>
-                        <a href="#">{item}</a>
-                      </h2>
-                      <p className="place-card__type">Private room</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <ProposalList
+                data={offers}
+                onPlaceTitleClick={onPlaceTitleClick}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -153,7 +124,20 @@ const App = ({realty, onPlaceTitleClick}) => (
 );
 
 App.propTypes = {
-  realty: PropTypes.arrayOf(PropTypes.string).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    image: PropTypes.shape({
+      src: PropTypes.string,
+      width: PropTypes.string,
+      height: PropTypes.string,
+      alt: PropTypes.string
+    }),
+    price: PropTypes.string,
+    period: PropTypes.string,
+    rating: PropTypes.string,
+    description: PropTypes.string,
+    type: PropTypes.string
+  })).isRequired,
   onPlaceTitleClick: PropTypes.func.isRequired
 };
 
