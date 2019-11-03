@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import ProposalCard from './proposalCard';
+import ProposalCard from './proposal-card';
 
 import {Offers} from '../../mocks/offers';
 

@@ -1,13 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import ProposalList from './proposalList';
+import ProposalCard from './proposal-card';
 
 import {Offers} from '../../mocks/offers';
 
-it(`ProposalList correctly renders after relaunch`, () => {
+it(`ProposalCard correctly renders after relaunch`, () => {
   const tree = renderer
-    .create(<ProposalList
-      data={Offers}
+    .create(<ProposalCard
+      proposal={Offers[0]}
+      onCardMouseEnter={jest.fn()}
+      onCardMouseLeave={jest.fn()}
       onPlaceTitleClick={jest.fn()}
     />)
     .toJSON();

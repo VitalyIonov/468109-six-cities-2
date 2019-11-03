@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-import ProposalList from '../proposalList/proposalList';
+import ProposalList from '../proposal-list/proposal-list';
 
 const App = ({offers, onPlaceTitleClick}) => (
   <Fragment>
