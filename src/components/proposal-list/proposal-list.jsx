@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import ProposalCard from '../proposal-card/proposal-card';
 
-class ProposalList extends Component {
+class ProposalList extends PureComponent {
   constructor(props) {
     super(props);
 

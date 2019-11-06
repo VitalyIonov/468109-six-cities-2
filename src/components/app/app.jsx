@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import ProposalList from '../proposal-list/proposal-list';
+import Map from '../map/map';
 
 const App = ({offers, onPlaceTitleClick}) => (
   <Fragment>
@@ -26,7 +27,7 @@ const App = ({offers, onPlaceTitleClick}) => (
           <div className="header__wrapper">
             <div className="header__left">
               <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
             <nav className="header__nav">
@@ -90,7 +91,7 @@ const App = ({offers, onPlaceTitleClick}) => (
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
-                  Popular
+              Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
@@ -114,7 +115,7 @@ const App = ({offers, onPlaceTitleClick}) => (
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map cords={offers.map((offer) => offer.coordinates)} />
             </div>
           </div>
         </div>
@@ -122,6 +123,7 @@ const App = ({offers, onPlaceTitleClick}) => (
     </div>
   </Fragment>
 );
+
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
