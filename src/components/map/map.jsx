@@ -34,11 +34,13 @@ class Map extends PureComponent {
         })
         .addTo(map);
 
-      cords.forEach((cord) => {
-        leaflet
-          .marker(cord, {icon})
-          .addTo(map);
-      });
+      if (cords && cords.length) {
+        cords.forEach((cord) => {
+          leaflet
+            .marker(cord, {icon})
+            .addTo(map);
+        });
+      }
     }
   }
 
