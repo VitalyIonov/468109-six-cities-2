@@ -2,6 +2,13 @@ import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
+const city = [52.38333, 4.9];
+const icon = leaflet.icon({
+  iconUrl: `img/pin.svg`,
+  iconSize: [30, 30]
+});
+const zoom = 12;
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
@@ -9,42 +16,49 @@ class Map extends PureComponent {
     this.mapRef = createRef();
   }
 
+  _updateMarkers(cords) {
+    if (this.map && cords && cords.length) {
+      this.markersLayer.clearLayers();
+
+      cords.forEach((cord) => {
+        const marker = leaflet.marker(cord, {icon});
+
+        this.markersLayer.addLayer(marker);
+      });
+    }
+  }
+
   componentDidMount() {
     const {cords} = this.props;
 
-    const city = [52.38333, 4.9];
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
-    const zoom = 12;
-
     if (this.mapRef.current) {
-      const map = leaflet.map(this.mapRef.current, {
+      this.map = leaflet.map(this.mapRef.current, {
         center: city,
         zoom,
         zoomControl: false,
         marker: true
       });
 
-      map.setView(city, zoom);
+      this.map.setView(city, zoom);
       leaflet
         .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
           attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
         })
-        .addTo(map);
+        .addTo(this.map);
 
-      if (cords && cords.length) {
-        cords.forEach((cord) => {
-          leaflet
-            .marker(cord, {icon})
-            .addTo(map);
-        });
-      }
+      this.markersLayer = new leaflet.LayerGroup();
+
+      this.markersLayer.addTo(this.map);
+
+      this._updateMarkers(cords);
     }
   }
 
   render() {
+    const {cords} = this.props;
+
+    this._updateMarkers(cords);
+
     return (
       <section ref={this.mapRef} className="cities__map map"></section>
     );

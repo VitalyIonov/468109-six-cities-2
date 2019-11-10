@@ -1,10 +1,14 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
+import CitiesList from '../cities-list/cities-list';
 import ProposalList from '../proposal-list/proposal-list';
 import Map from '../map/map';
 
-const App = ({offers, onPlaceTitleClick}) => (
+import {getOffersByCity} from '../../utils/offers';
+
+const App = ({offers, currentCity, onPlaceTitleClick}) => (
   <Fragment>
     <div style={{"display": `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -49,45 +53,17 @@ const App = ({offers, onPlaceTitleClick}) => (
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList
+              cities={[`Paris`, `Cologne`, `Brussels`, `Amsterdam`]}
+              currentCity={currentCity}
+            />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{`${offers.length} places to stay in Amsterdam`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -124,10 +100,10 @@ const App = ({offers, onPlaceTitleClick}) => (
   </Fragment>
 );
 
-
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
+    city: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`]),
     image: PropTypes.shape({
       src: PropTypes.string,
       width: PropTypes.string,
@@ -140,7 +116,15 @@ App.propTypes = {
     description: PropTypes.string,
     type: PropTypes.string
   })).isRequired,
+  currentCity: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`]),
   onPlaceTitleClick: PropTypes.func.isRequired
 };
 
-export default App;
+const mapStateToProps = (state, props) => Object.assign({}, props, {
+  currentCity: state.currentCity,
+  offers: getOffersByCity(state.currentCity, state.offers)
+});
+
+export {App};
+
+export default connect(mapStateToProps, {})(App);
