@@ -1,7 +1,7 @@
 import {CHANGE_CITY} from "./constants/actions";
 
 const initialState = {
-  currentCity: `Paris`,
+  currentCity: ``,
   offers: [
     {
       id: 1,

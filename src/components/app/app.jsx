@@ -6,9 +6,9 @@ import CitiesList from '../cities-list/cities-list';
 import ProposalList from '../proposal-list/proposal-list';
 import Map from '../map/map';
 
-import {getOffersByCity} from '../../utils/offers';
+import {getOffersByCity, getCitiesList} from '../../utils/offers';
 
-const App = ({offers, currentCity, onPlaceTitleClick}) => (
+const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
   <Fragment>
     <div style={{"display": `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ const App = ({offers, currentCity, onPlaceTitleClick}) => (
         <div className="tabs">
           <section className="locations container">
             <CitiesList
-              cities={[`Paris`, `Cologne`, `Brussels`, `Amsterdam`]}
+              cities={cities}
               currentCity={currentCity}
             />
           </section>
@@ -116,12 +116,14 @@ App.propTypes = {
     description: PropTypes.string,
     type: PropTypes.string
   })).isRequired,
-  currentCity: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`]),
+  cities: PropTypes.arrayOf(PropTypes.string),
+  currentCity: PropTypes.string,
   onPlaceTitleClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, props) => Object.assign({}, props, {
   currentCity: state.currentCity,
+  cities: getCitiesList(state.offers),
   offers: getOffersByCity(state.currentCity, state.offers)
 });
 

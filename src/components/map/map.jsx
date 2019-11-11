@@ -54,11 +54,13 @@ class Map extends PureComponent {
     }
   }
 
-  render() {
+  componentDidUpdate() {
     const {cords} = this.props;
 
     this._updateMarkers(cords);
+  }
 
+  render() {
     return (
       <section ref={this.mapRef} className="cities__map map"></section>
     );
