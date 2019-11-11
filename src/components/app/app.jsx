@@ -63,7 +63,7 @@ const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${offers.length} places to stay in Amsterdam`}</b>
+              <b className="places__found">{`${offers.length} places to stay in ${currentCity}`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -121,11 +121,15 @@ App.propTypes = {
   onPlaceTitleClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, props) => Object.assign({}, props, {
-  currentCity: state.currentCity,
-  cities: getCitiesList(state.offers),
-  offers: getOffersByCity(state.currentCity, state.offers)
-});
+const mapStateToProps = (state, props) => {
+  const cities = getCitiesList(state.offers);
+
+  return Object.assign({}, props, {
+    currentCity: state.currentCity || cities[0],
+    cities,
+    offers: getOffersByCity(state.currentCity || cities[0], state.offers)
+  });
+};
 
 export {App};
 

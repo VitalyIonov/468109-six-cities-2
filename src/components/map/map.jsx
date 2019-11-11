@@ -17,6 +17,8 @@ class Map extends PureComponent {
   }
 
   _updateMarkers(cords) {
+    console.log('cords', cords);
+
     if (this.map && cords && cords.length) {
       this.markersLayer.clearLayers();
 
