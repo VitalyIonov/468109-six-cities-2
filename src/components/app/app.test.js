@@ -12,6 +12,7 @@ it(`App correctly renders after relaunch`, () => {
         <Provider store={createStore(jest.fn())}>
           <App
             offers={Offers}
+            cities={[`Paris`, `Cologne`, `Brussels`, `Amsterdam`]}
             currentCity="Cologne"
             onPlaceTitleClick={jest.fn()}
           />
