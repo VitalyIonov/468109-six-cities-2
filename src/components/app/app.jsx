@@ -123,11 +123,12 @@ App.propTypes = {
 
 const mapStateToProps = (state, props) => {
   const cities = getCitiesList(state.offers);
+  const defaultCity = cities[0];
 
   return Object.assign({}, props, {
-    currentCity: state.currentCity || cities[0],
+    currentCity: state.currentCity || defaultCity,
     cities,
-    offers: getOffersByCity(state.currentCity || cities[0], state.offers)
+    offers: getOffersByCity(state.currentCity || defaultCity, state.offers)
   });
 };
 
