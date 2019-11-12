@@ -1,15 +1,23 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import {App} from './app';
 
 import {Offers} from '../../mocks/offers';
 
 it(`App correctly renders after relaunch`, () => {
   const tree = renderer
-    .create(<App
-      offers={Offers}
-      onPlaceTitleClick={jest.fn()}
-    />)
+    .create(
+        <Provider store={createStore(jest.fn())}>
+          <App
+            offers={Offers}
+            cities={[`Paris`, `Cologne`, `Brussels`, `Amsterdam`]}
+            currentCity="Cologne"
+            onPlaceTitleClick={jest.fn()}
+          />
+        </Provider>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
