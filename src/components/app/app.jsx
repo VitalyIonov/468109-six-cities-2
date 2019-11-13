@@ -6,9 +6,12 @@ import CitiesList from '../cities-list/cities-list';
 import ProposalList from '../proposal-list/proposal-list';
 import Map from '../map/map';
 
-import {getOffersByCity, getCitiesList} from '../../utils/offers';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
-const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
+const WrappedCitiesList = withActiveItem(CitiesList);
+const WrappedProposalList = withActiveItem(ProposalList);
+
+const App = ({offersByCity, cities, currentCity, onPlaceTitleClick}) => (
   <Fragment>
     <div style={{"display": `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -53,9 +56,9 @@ const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList
+            <WrappedCitiesList
               cities={cities}
-              currentCity={currentCity}
+              initialItem={currentCity}
             />
           </section>
         </div>
@@ -63,7 +66,7 @@ const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${offers.length} places to stay in ${currentCity}`}</b>
+              <b className="places__found">{`${offersByCity.length} places to stay in ${currentCity}`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -85,13 +88,13 @@ const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
                 {/* <option class="places__option" value="top-rated">Top rated first</option>*/}
                 {/* </select>*/}
               </form>
-              <ProposalList
-                data={offers}
+              <WrappedProposalList
+                data={offersByCity}
                 onPlaceTitleClick={onPlaceTitleClick}
               />
             </section>
             <div className="cities__right-section">
-              <Map cords={offers.map((offer) => offer.coordinates)} />
+              <Map cords={offersByCity.map((offer) => offer.coordinates)} />
             </div>
           </div>
         </div>
@@ -101,7 +104,7 @@ const App = ({offers, cities, currentCity, onPlaceTitleClick}) => (
 );
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  offersByCity: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     city: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`]),
     image: PropTypes.shape({
@@ -121,16 +124,11 @@ App.propTypes = {
   onPlaceTitleClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, props) => {
-  const cities = getCitiesList(state.offers);
-  const defaultCity = cities[0];
-
-  return Object.assign({}, props, {
-    currentCity: state.currentCity || defaultCity,
-    cities,
-    offers: getOffersByCity(state.currentCity || defaultCity, state.offers)
-  });
-};
+const mapStateToProps = (state, props) => Object.assign({}, props, {
+  cities: state.cities,
+  currentCity: state.currentCity,
+  offersByCity: state.offersByCity
+});
 
 export {App};
 
