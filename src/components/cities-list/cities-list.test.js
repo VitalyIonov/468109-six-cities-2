@@ -6,8 +6,9 @@ it(`CitiesList correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<CitiesList
       cities={[`Paris`, `Cologne`, `Brussels`, `Amsterdam`]}
-      currentCity={`Paris`}
-      handleCityClick={jest.fn()}
+      currentItem={`Paris`}
+      onChangeItem={jest.fn()}
+      handleCityChange={jest.fn()}
     />)
     .toJSON();
 

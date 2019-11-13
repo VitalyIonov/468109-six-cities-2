@@ -10,7 +10,7 @@ Enzyme.configure({adapter: new Adapter()});
 it(`Title click is correct`, ()=> {
   const clickHandler = jest.fn();
   const app = shallow(<App
-    offers={Offers}
+    offersByCity={Offers}
     currentCity="Cologne"
     onPlaceTitleClick={clickHandler}
   />);
