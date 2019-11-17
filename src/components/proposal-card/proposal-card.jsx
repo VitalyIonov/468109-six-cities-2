@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ProposalCard = ({proposal, onCardMouseEnter, onCardMouseLeave, onPlaceTitleClick}) => {
-  const {id, image, price, period, rating, description, type} = proposal;
+  const {id, title, previewImage, price, period, rating, description, type} = proposal;
 
   return (
     <article
@@ -12,7 +12,7 @@ const ProposalCard = ({proposal, onCardMouseEnter, onCardMouseLeave, onPlaceTitl
     >
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={image.src} width={image.width} height={image.height} alt={image.alt} />
+          <img className="place-card__image" src={previewImage} alt={title} />
         </a>
       </div>
       <div className="place-card__info">
@@ -30,7 +30,7 @@ const ProposalCard = ({proposal, onCardMouseEnter, onCardMouseLeave, onPlaceTitl
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{"width": {rating}}}></span>
+            <span style={{"width": rating * 20}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -46,15 +46,21 @@ const ProposalCard = ({proposal, onCardMouseEnter, onCardMouseLeave, onPlaceTitl
 ProposalCard.propTypes = {
   proposal: PropTypes.shape({
     id: PropTypes.number,
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.object,
+    }),
+    previewImage: PropTypes.string,
+    title: PropTypes.string,
     image: PropTypes.shape({
       src: PropTypes.string,
       width: PropTypes.string,
       height: PropTypes.string,
       alt: PropTypes.string
     }),
-    price: PropTypes.string,
+    price: PropTypes.number,
     period: PropTypes.string,
-    rating: PropTypes.string,
+    rating: PropTypes.number,
     description: PropTypes.string,
     type: PropTypes.string
   }).isRequired,

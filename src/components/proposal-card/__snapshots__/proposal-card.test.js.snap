@@ -13,11 +13,9 @@ exports[`ProposalCard correctly renders after relaunch 1`] = `
       href="#"
     >
       <img
-        alt="Place image"
+        alt="Canal View Prinsengracht"
         className="place-card__image"
-        height="200"
-        src="img/room.jpg"
-        width="260"
+        src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/14.jpg"
       />
     </a>
   </div>
@@ -34,13 +32,12 @@ exports[`ProposalCard correctly renders after relaunch 1`] = `
           className="place-card__price-value"
         >
           €
-          80
+          571
         </b>
         <span
           className="place-card__price-text"
         >
           / 
-          night
         </span>
       </div>
       <button
@@ -72,9 +69,7 @@ exports[`ProposalCard correctly renders after relaunch 1`] = `
         <span
           style={
             Object {
-              "width": Object {
-                "rating": "80%",
-              },
+              "width": 44,
             }
           }
         />
@@ -92,13 +87,13 @@ exports[`ProposalCard correctly renders after relaunch 1`] = `
       <a
         href="#"
       >
-        Beautiful & luxurious apartment at great location
+        Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      Private room
+      house
     </p>
   </div>
 </article>

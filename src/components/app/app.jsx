@@ -66,7 +66,7 @@ const App = ({offersByCity, cities, currentCity, onPlaceTitleClick}) => (
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${offersByCity.length} places to stay in ${currentCity}`}</b>
+              <b className="places__found">{`${offersByCity.length} places to stay in ${currentCity.name}`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -94,7 +94,10 @@ const App = ({offersByCity, cities, currentCity, onPlaceTitleClick}) => (
               />
             </section>
             <div className="cities__right-section">
-              <Map cords={offersByCity.map((offer) => offer.coordinates)} />
+              <Map
+                cords={offersByCity.map((offer) => ([offer.location.latitude, offer.location.longitude]))}
+                currentCity={[currentCity.location.latitude, currentCity.location.longitude]}
+              />
             </div>
           </div>
         </div>
@@ -106,21 +109,30 @@ const App = ({offersByCity, cities, currentCity, onPlaceTitleClick}) => (
 App.propTypes = {
   offersByCity: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    city: PropTypes.oneOf([`Paris`, `Cologne`, `Brussels`, `Amsterdam`]),
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.object,
+    }),
     image: PropTypes.shape({
       src: PropTypes.string,
       width: PropTypes.string,
       height: PropTypes.string,
       alt: PropTypes.string
     }),
-    price: PropTypes.string,
+    price: PropTypes.number,
     period: PropTypes.string,
-    rating: PropTypes.string,
+    rating: PropTypes.number,
     description: PropTypes.string,
     type: PropTypes.string
   })).isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string),
-  currentCity: PropTypes.string,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.object
+  })),
+  currentCity: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.object
+  }),
   onPlaceTitleClick: PropTypes.func.isRequired
 };
 

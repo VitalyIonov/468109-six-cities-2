@@ -1,15 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import {compose} from 'recompose';
 
 import App from './components/app/app';
 
-import {reducer} from './reducer';
+import {reducer, sources} from './reducer';
+import configureAPI from './api';
+
+
+const api = configureAPI((...args) => store.dispatch(...args));
 
 const store = createStore(
     reducer,
-    window && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    compose(
+        applyMiddleware(thunk.withExtraArgument(api)),
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    )
 );
 
 const container = document.getElementById(`root`);
@@ -25,4 +34,5 @@ const init = () => {
   );
 };
 
-init();
+Promise.resolve(store.dispatch(sources.getOffers()))
+  .then(() => init());

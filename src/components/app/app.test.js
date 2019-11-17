@@ -5,6 +5,7 @@ import {createStore} from 'redux';
 import {App} from './app';
 
 import {Offers} from '../../mocks/offers';
+import {Cities} from '../../mocks/cities';
 
 it(`App correctly renders after relaunch`, () => {
   const tree = renderer
@@ -12,8 +13,8 @@ it(`App correctly renders after relaunch`, () => {
         <Provider store={createStore(jest.fn())}>
           <App
             offersByCity={Offers}
-            cities={[`Paris`, `Cologne`, `Brussels`, `Amsterdam`]}
-            currentCity="Cologne"
+            cities={Cities}
+            currentCity={Cities[0]}
             onPlaceTitleClick={jest.fn()}
           />
         </Provider>

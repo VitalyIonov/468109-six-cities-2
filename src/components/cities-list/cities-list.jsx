@@ -13,13 +13,13 @@ const CitiesList = ({cities, currentItem, onChangeItem, handleCityChange}) => {
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city) => (
-        <li key={city} className="locations__item">
+        <li key={city.name} className="locations__item">
           <a
-            className={`locations__item-link tabs__item ${currentItem === city ? `tabs__item--active` : ``}`}
+            className={`locations__item-link tabs__item ${currentItem.name === city.name ? `tabs__item--active` : ``}`}
             href="#"
             onClick={handleCityClick(city)}
           >
-            <span>{city}</span>
+            <span>{city.name}</span>
           </a>
         </li>
       ))}
@@ -28,8 +28,14 @@ const CitiesList = ({cities, currentItem, onChangeItem, handleCityChange}) => {
 };
 
 CitiesList.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentItem: PropTypes.string,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.object
+  })),
+  currentItem: PropTypes.PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.object
+  }),
   onChangeItem: PropTypes.func.isRequired,
   handleCityChange: PropTypes.func.isRequired
 };

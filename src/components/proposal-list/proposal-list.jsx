@@ -30,15 +30,19 @@ const ProposalList = ({data, onChangeItem, onPlaceTitleClick}) => {
 ProposalList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.object,
+    }),
     image: PropTypes.shape({
       src: PropTypes.string,
       width: PropTypes.string,
       height: PropTypes.string,
       alt: PropTypes.string
     }),
-    price: PropTypes.string,
+    price: PropTypes.number,
     period: PropTypes.string,
-    rating: PropTypes.string,
+    rating: PropTypes.number,
     description: PropTypes.string,
     type: PropTypes.string
   })).isRequired,
