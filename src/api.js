@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CreateApi = () => {
+const ConfigureApi = () => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-2.appspot.com/six-cities`,
     timeout: 5000,
@@ -15,4 +15,4 @@ const CreateApi = () => {
   return api;
 };
 
-export default CreateApi;
+export default ConfigureApi;
