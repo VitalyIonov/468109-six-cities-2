@@ -4,9 +4,10 @@ import {connect} from 'react-redux';
 
 import {actionCreator} from '../../reducer';
 
-const CitiesList = ({cities, currentItem, onChangeItem, handleCityChange}) => {
+const CitiesList = ({cities, currentItem, onChangeItem, handleCityChange, handleOffersByCityChange}) => {
   const handleCityClick = (city) => () => {
     handleCityChange(city);
+    handleOffersByCityChange(city);
     onChangeItem(city);
   };
 
@@ -37,12 +38,16 @@ CitiesList.propTypes = {
     location: PropTypes.object
   }),
   onChangeItem: PropTypes.func.isRequired,
-  handleCityChange: PropTypes.func.isRequired
+  handleCityChange: PropTypes.func.isRequired,
+  handleOffersByCityChange: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleCityChange: (city) => dispatch(actionCreator.changeCity(city))
-});
+const mapDispatchToProps = (dispatch, ...rest) => {
+  return {
+    handleCityChange: (city) => dispatch(actionCreator.changeCity(city)),
+    handleOffersByCityChange: (city) => dispatch(actionCreator.changeOffersByCity(city))
+  };
+};
 
 export {CitiesList};
 

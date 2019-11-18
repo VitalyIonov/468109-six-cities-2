@@ -114,7 +114,7 @@ exports[`ProposalList correctly renders after relaunch 1`] = `
         <img
           alt="Canal View Prinsengracht"
           className="place-card__image"
-          src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/14.jpg"
+          src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/15.jpg"
         />
       </a>
     </div>
@@ -210,7 +210,7 @@ exports[`ProposalList correctly renders after relaunch 1`] = `
         <img
           alt="Canal View Prinsengracht"
           className="place-card__image"
-          src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/14.jpg"
+          src="https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/16.jpg"
         />
       </a>
     </div>

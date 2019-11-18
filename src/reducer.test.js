@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import {actionCreator, sources} from "./reducer";
 import {CHANGE_CITY, LOAD_OFFERS} from "./constants/actions";
 import {Offers} from "./mocks/offers";
-import configureAPI from './api';
+import {api} from './api';
 
 
 it(`Action creator for change city returns correct action`, () => {
@@ -22,7 +22,7 @@ it(`Action creator for load offers correct action`, () => {
 
 it(`Should make a correct API call to /hotels`, () => {
   const dispatch = jest.fn();
-  const apiMock = new MockAdapter(configureAPI());
+  const apiMock = new MockAdapter(api);
   const offersLoader = sources.getOffers();
 
   apiMock

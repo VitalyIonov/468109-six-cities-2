@@ -13,5 +13,5 @@ export const getCitiesList = (offers) => {
 };
 
 export const formatToClient = (offers) => offers.map((offer) => Object.assign({}, offer, {
-  previewImage: offer.preview_image
+  previewImage: offer.preview_image || offer.previewImage
 }));

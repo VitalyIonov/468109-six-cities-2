@@ -1,4 +1,4 @@
-import {CHANGE_CITY, LOAD_OFFERS} from "./constants/actions";
+import {CHANGE_CITY, LOAD_OFFERS, CHANGE_OFFERS_BY_CITY, LOAD_OFFERS_BY_CITY, LOAD_CITIES} from "./constants/actions";
 import {getOffersByCity, getCitiesList, formatToClient} from './utils/offers';
 import configureAPI from './api';
 
@@ -12,17 +12,20 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_CITY: return Object.assign({}, state, {
-      offersByCity: getOffersByCity(action.payload, state.offers),
       currentCity: action.payload
     });
-    case LOAD_OFFERS: {
-      const cities = getCitiesList(action.payload);
-
+    case CHANGE_OFFERS_BY_CITY:
+    case LOAD_OFFERS_BY_CITY: return Object.assign({}, state, {
+      offersByCity: action.payload,
+    });
+    case LOAD_OFFERS: return Object.assign({}, state, {
+      offers: action.payload
+    });
+    case LOAD_CITIES: {
+      console.log('action.payload', action.payload);
       return Object.assign({}, state, {
-        offers: action.payload,
-        offersByCity: getOffersByCity(cities[0], action.payload),
-        cities,
-        currentCity: cities[0]
+        cities: action.payload.cities,
+        currentCity: action.payload.currentCity
       });
     }
   }
@@ -38,9 +41,43 @@ const actionCreator = {
     };
   },
 
-  loadOffers: (offers) => ({
-    type: LOAD_OFFERS,
+  changeOffersByCity: (city) => (dispatch, getState) => {
+    const offers = getState().offers;
+    const offersByCity = getOffersByCity(city, offers);
+
+    return dispatch({
+      type: CHANGE_OFFERS_BY_CITY,
+      payload: offersByCity
+    });
+  },
+
+  loadOffers(offers) {
+    return (dispatch) => {
+      const cities = getCitiesList(offers);
+      const offersByCity = getOffersByCity(cities[0], offers);
+
+      dispatch(this.loadOffersByCity(offersByCity));
+      dispatch(this.loadCities(cities));
+
+      return dispatch({
+        type: LOAD_OFFERS,
+        payload: offers
+      });
+    };
+  },
+
+  loadOffersByCity: (offers) => ({
+    type: LOAD_OFFERS_BY_CITY,
     payload: offers
+  }),
+
+
+  loadCities: (cities) => ({
+    type: LOAD_CITIES,
+    payload: {
+      cities,
+      currentCity: cities[0]
+    }
   })
 };
 
@@ -48,7 +85,9 @@ const sources = {
   getOffers: () => (dispatch) => {
     return configureAPI(dispatch).get(`/hotels`)
       .then((response) => {
-        dispatch(actionCreator.loadOffers(formatToClient(response.data)));
+        const updatedPayload = formatToClient(response.data);
+
+        dispatch(actionCreator.loadOffers(updatedPayload));
       });
   }
 };

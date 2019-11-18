@@ -1,2 +1,5 @@
 export const CHANGE_CITY = `CHANGE_CITY`;
+export const CHANGE_OFFERS_BY_CITY = `CHANGE_OFFERS_BY_CITY;`;
 export const LOAD_OFFERS = `LOAD_OFFERS`;
+export const LOAD_OFFERS_BY_CITY = `LOAD_OFFERS_BY_CITY`;
+export const LOAD_CITIES = `LOAD_CITIES`;
