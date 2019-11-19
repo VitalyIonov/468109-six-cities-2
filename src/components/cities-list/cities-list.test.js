@@ -10,6 +10,7 @@ it(`CitiesList correctly renders after relaunch`, () => {
       currentItem={Cities[0]}
       onChangeItem={jest.fn()}
       handleCityChange={jest.fn()}
+      handleOffersByCityChange={jest.fn()}
     />)
     .toJSON();
 

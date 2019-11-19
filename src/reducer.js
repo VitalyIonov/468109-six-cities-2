@@ -1,4 +1,4 @@
-import {CHANGE_CITY, LOAD_OFFERS, CHANGE_OFFERS_BY_CITY, LOAD_OFFERS_BY_CITY, LOAD_CITIES} from "./constants/actions";
+import {CHANGE_CITY, LOAD_OFFERS, CHANGE_OFFERS_BY_CITY, LOAD_OFFERS_BY_CITY, LOAD_CITIES} from './constants/actions';
 import {getOffersByCity, getCitiesList, formatToClient} from './utils/offers';
 import configureAPI from './api';
 
@@ -22,7 +22,6 @@ const reducer = (state = initialState, action) => {
       offers: action.payload
     });
     case LOAD_CITIES: {
-      console.log('action.payload', action.payload);
       return Object.assign({}, state, {
         cities: action.payload.cities,
         currentCity: action.payload.currentCity

@@ -42,7 +42,7 @@ CitiesList.propTypes = {
   handleOffersByCityChange: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch, ...rest) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     handleCityChange: (city) => dispatch(actionCreator.changeCity(city)),
     handleOffersByCityChange: (city) => dispatch(actionCreator.changeOffersByCity(city))
