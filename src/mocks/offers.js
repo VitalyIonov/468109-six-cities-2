@@ -1,130 +1,68 @@
 export const Offers = [
   {
+    bedrooms: 5,
+    city: {
+      name: `Dusseldorf`,
+      location: {latitude: 51.225402, longitude: 6.776314, zoom: 13}
+    },
+    name: `Dusseldorf`,
+    description: `Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.`,
+    goods: [`Air conditioning`, `Laptop friendly workspace`, `Breakfast`, `Washer`],
+    host: {id: 25, name: `Angelina`, isPro: true, avatarUrl: `img/avatar-angelina.jpg`},
     id: 1,
-    city: `Cologne`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `80`,
-    period: `night`,
-    rating: `80%`,
-    coordinates: [52.3909553943508, 4.85309666406198],
-    description: `Beautiful & luxurious apartment at great location`,
-    type: `Private room`
+    images: [`https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/9.jpg`],
+    isFavorite: false,
+    isPremium: false,
+    location: {latitude: 51.232402, longitude: 6.800314, zoom: 16},
+    maxAdults: 8,
+    previewImage: `https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/14.jpg`,
+    price: 571,
+    rating: 2.2,
+    title: `Canal View Prinsengracht`,
+    type: `house`,
   },
   {
+    bedrooms: 3,
+    city: {
+      name: `Amsterdam`,
+      location: {latitude: 51.245402, longitude: 6.766314, zoom: 13}
+    },
+    name: `Amsterdam`,
+    description: `Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.`,
+    goods: [`Air conditioning`, `Laptop friendly workspace`, `Breakfast`, `Washer`],
+    host: {id: 25, name: `Angelina`, isPro: true, avatarUrl: `img/avatar-angelina.jpg`},
     id: 2,
-    city: `Cologne`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `180`,
-    period: `night`,
-    rating: `60%`,
-    coordinates: [52.369553943508, 4.85309666406198],
-    description: `Wood and stone place`,
-    type: `Private room`
+    images: [`https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/9.jpg`],
+    isFavorite: false,
+    isPremium: false,
+    location: {latitude: 51.232402, longitude: 6.800314, zoom: 16},
+    maxAdults: 8,
+    previewImage: `https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/15.jpg`,
+    price: 571,
+    rating: 2.8,
+    title: `Canal View Prinsengracht`,
+    type: `house`,
   },
   {
+    bedrooms: 1,
+    city: {
+      name: `Cologne`,
+      location: {latitude: 51.345402, longitude: 6.866314, zoom: 13}
+    },
+    name: `Cologne`,
+    description: `Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.`,
+    goods: [`Air conditioning`, `Laptop friendly workspace`, `Breakfast`, `Washer`],
+    host: {id: 25, name: `Angelina`, isPro: true, avatarUrl: `img/avatar-angelina.jpg`},
     id: 3,
-    city: `Paris`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `820`,
-    period: `night`,
-    rating: `30%`,
-    coordinates: [52.3909553943508, 4.929309666406198],
-    description: `Canal View Prinsengracht`,
-    type: `Private room`
-  },
-  {
-    id: 4,
-    city: `Paris`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `81`,
-    period: `night`,
-    rating: `100%`,
-    coordinates: [52.3809553943508, 4.939309666406198],
-    description: `Nice, cozy, warm big bed apartment`,
-    type: `Private room`
-  },
-  {
-    id: 5,
-    city: `Paris`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `80`,
-    period: `night`,
-    rating: `80%`,
-    coordinates: [52.3809553943508, 4.87309666406198],
-    description: `Beautiful & luxurious apartment at great location`,
-    type: `Private room`
-  },
-  {
-    id: 6,
-    city: `Brussels`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `180`,
-    period: `night`,
-    rating: `60%`,
-    coordinates: [52.379553943508, 4.86309666406198],
-    description: `Wood and stone place`,
-    type: `Private room`
-  },
-  {
-    id: 7,
-    city: `Amsterdam`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `820`,
-    period: `night`,
-    rating: `30%`,
-    coordinates: [52.3909553943508, 4.909309666406198],
-    description: `Canal View Prinsengracht`,
-    type: `Private room`
-  },
-  {
-    id: 8,
-    city: `Amsterdam`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `81`,
-    period: `night`,
-    rating: `100%`,
-    coordinates: [52.3859553943508, 4.930309666406198],
-    description: `Nice, cozy, warm big bed apartment`,
-    type: `Private room`
+    images: [`https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/9.jpg`],
+    isFavorite: false,
+    isPremium: false,
+    location: {latitude: 51.232402, longitude: 6.800314, zoom: 16},
+    maxAdults: 8,
+    previewImage: `https://htmlacademy-react-2.appspot.com/six-cities/static/hotel/16.jpg`,
+    price: 571,
+    rating: 4.8,
+    title: `Canal View Prinsengracht`,
+    type: `house`,
   }
 ];

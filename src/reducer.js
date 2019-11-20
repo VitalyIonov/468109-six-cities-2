@@ -1,153 +1,32 @@
-import {CHANGE_CITY} from "./constants/actions";
-import {getOffersByCity, getCitiesList} from './utils/offers';
-
-const offers = [
-  {
-    id: 1,
-    city: `Cologne`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `80`,
-    period: `night`,
-    rating: `80%`,
-    coordinates: [52.3909553943508, 4.85309666406198],
-    description: `Beautiful & luxurious apartment at great location`,
-    type: `Private room`
-  },
-  {
-    id: 2,
-    city: `Cologne`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `180`,
-    period: `night`,
-    rating: `60%`,
-    coordinates: [52.369553943508, 4.85309666406198],
-    description: `Wood and stone place`,
-    type: `Private room`
-  },
-  {
-    id: 3,
-    city: `Paris`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `820`,
-    period: `night`,
-    rating: `30%`,
-    coordinates: [52.3909553943508, 4.929309666406198],
-    description: `Canal View Prinsengracht`,
-    type: `Private room`
-  },
-  {
-    id: 4,
-    city: `Paris`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `81`,
-    period: `night`,
-    rating: `100%`,
-    coordinates: [52.3809553943508, 4.939309666406198],
-    description: `Nice, cozy, warm big bed apartment`,
-    type: `Private room`
-  },
-  {
-    id: 5,
-    city: `Paris`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `80`,
-    period: `night`,
-    rating: `80%`,
-    coordinates: [52.3809553943508, 4.87309666406198],
-    description: `Beautiful & luxurious apartment at great location`,
-    type: `Private room`
-  },
-  {
-    id: 6,
-    city: `Brussels`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `180`,
-    period: `night`,
-    rating: `60%`,
-    coordinates: [52.379553943508, 4.86309666406198],
-    description: `Wood and stone place`,
-    type: `Private room`
-  },
-  {
-    id: 7,
-    city: `Amsterdam`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `820`,
-    period: `night`,
-    rating: `30%`,
-    coordinates: [52.3909553943508, 4.909309666406198],
-    description: `Canal View Prinsengracht`,
-    type: `Private room`
-  },
-  {
-    id: 8,
-    city: `Amsterdam`,
-    image: {
-      src: `img/room.jpg`,
-      width: `260`,
-      height: `200`,
-      alt: `Place image`
-    },
-    price: `81`,
-    period: `night`,
-    rating: `100%`,
-    coordinates: [52.3859553943508, 4.930309666406198],
-    description: `Nice, cozy, warm big bed apartment`,
-    type: `Private room`
-  }
-];
-
-const cities = getCitiesList(offers);
+import {CHANGE_CITY, LOAD_OFFERS, CHANGE_OFFERS_BY_CITY, LOAD_OFFERS_BY_CITY, LOAD_CITIES} from './constants/actions';
+import {getOffersByCity, getCitiesList, formatToClient} from './utils/offers';
+import configureAPI from './api';
 
 const initialState = {
-  offers,
-  cities,
-  currentCity: cities[0],
-  offersByCity: getOffersByCity(cities[0], offers)
+  offers: [],
+  cities: null,
+  currentCity: null,
+  offersByCity: []
 };
-
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_CITY: return Object.assign({}, state, {
-      offersByCity: getOffersByCity(action.payload, state.offers),
       currentCity: action.payload
     });
+    case CHANGE_OFFERS_BY_CITY:
+    case LOAD_OFFERS_BY_CITY: return Object.assign({}, state, {
+      offersByCity: action.payload,
+    });
+    case LOAD_OFFERS: return Object.assign({}, state, {
+      offers: action.payload
+    });
+    case LOAD_CITIES: {
+      return Object.assign({}, state, {
+        cities: action.payload.cities,
+        currentCity: action.payload.currentCity
+      });
+    }
   }
 
   return state;
@@ -159,10 +38,61 @@ const actionCreator = {
       type: CHANGE_CITY,
       payload: city
     };
+  },
+
+  changeOffersByCity: (city) => (dispatch, getState) => {
+    const offers = getState().offers;
+    const offersByCity = getOffersByCity(city, offers);
+
+    return dispatch({
+      type: CHANGE_OFFERS_BY_CITY,
+      payload: offersByCity
+    });
+  },
+
+  loadOffers(offers) {
+    return (dispatch) => {
+      const cities = getCitiesList(offers);
+      const offersByCity = getOffersByCity(cities[0], offers);
+
+      dispatch(this.loadOffersByCity(offersByCity));
+      dispatch(this.loadCities(cities));
+
+      return dispatch({
+        type: LOAD_OFFERS,
+        payload: offers
+      });
+    };
+  },
+
+  loadOffersByCity: (offers) => ({
+    type: LOAD_OFFERS_BY_CITY,
+    payload: offers
+  }),
+
+
+  loadCities: (cities) => ({
+    type: LOAD_CITIES,
+    payload: {
+      cities,
+      currentCity: cities[0]
+    }
+  })
+};
+
+const sources = {
+  getOffers: () => (dispatch) => {
+    return configureAPI(dispatch).get(`/hotels`)
+      .then((response) => {
+        const updatedPayload = formatToClient(response.data);
+
+        dispatch(actionCreator.loadOffers(updatedPayload));
+      });
   }
 };
 
 export {
   reducer,
+  sources,
   actionCreator
 };

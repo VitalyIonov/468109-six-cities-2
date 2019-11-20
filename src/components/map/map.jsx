@@ -2,7 +2,6 @@ import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
-const city = [52.38333, 4.9];
 const icon = leaflet.icon({
   iconUrl: `img/pin.svg`,
   iconSize: [30, 30]
@@ -17,8 +16,12 @@ class Map extends PureComponent {
   }
 
   _updateMarkers(cords) {
+    const {currentCity} = this.props;
+
     if (this.map && cords && cords.length) {
       this.markersLayer.clearLayers();
+
+      this.map.setView(currentCity);
 
       cords.forEach((cord) => {
         const marker = leaflet.marker(cord, {icon});
@@ -29,7 +32,8 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {cords} = this.props;
+    const {cords, currentCity} = this.props;
+    const city = currentCity;
 
     if (this.mapRef.current) {
       this.map = leaflet.map(this.mapRef.current, {
@@ -68,7 +72,8 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
-  cords: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
+  cords: PropTypes.arrayOf(PropTypes.array),
+  currentCity: PropTypes.array
 };
 
 export default Map;
